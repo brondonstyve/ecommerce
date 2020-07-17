@@ -1,0 +1,6 @@
+@include('layoutPages.css')
+@include('layoutPages.header')
+@include('layoutPages.menu')
+@include("layoutPages.corps$title")
+@include('layoutPages.footer')
+@include('layoutPages.script')

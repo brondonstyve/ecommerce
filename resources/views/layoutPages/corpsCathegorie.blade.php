@@ -1,0 +1,3 @@
+
+
+@livewire('page2cathegorie')
