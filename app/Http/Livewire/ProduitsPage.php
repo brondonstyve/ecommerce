@@ -45,6 +45,19 @@ class ProduitsPage extends Component
         $this->condition='marque';
     }
 
+    public function getAutreproduitProperty(){
+            return Collection::renduProduit('id','desc',$this->select);
+    }
+
+    public function mount($id_cathegorie){
+        if ($id_cathegorie!='s') {
+            $this->selection=decrypt($id_cathegorie);
+        }
+    }
+
+    public function detail($id){
+        return redirect()->route('detail_produit_path',$id);
+    }
 
 
 

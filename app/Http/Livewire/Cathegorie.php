@@ -14,10 +14,6 @@ class Cathegorie extends Component
        return Collection::renduCollection('id','desc',15);
     }
 
-    public function consulter($id){
-
-    }
-
 
     public function render()
     {

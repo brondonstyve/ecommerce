@@ -1,6 +1,6 @@
 @if (session()->has('error_connexion'))
     <div class="alert alert-danger text-center">
-        <span class="text-danger">{{ session('error_connexion') }}</span>
+        <span class="text-danger">{!! session('error_connexion') !!}</span>
     </div>
 @endif
 
@@ -36,7 +36,6 @@
                     </div>
                     <div class="input-checkbox">
                         <form  wire:submit.prevent='connexion'>
-                            @csrf
                             <div class="">
 
                                 <span>Téléphone</span>
@@ -44,7 +43,7 @@
                                   <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="fa fa-phone"></i></div>
                                   </div>
-                                  <input class="form-control" type="tel" wire:model="telephone" name="telephone" value="{{ $telephone }}" placeholder="ex: 697320974" pattern="[0-9]{9}" required>
+                                  <input class="form-control" type="tel" wire:model="telephone" value="{{ $telephone }}" placeholder="ex: 697320974" pattern="[0-9]{9}" required>
                               </div>
 
 
@@ -53,7 +52,7 @@
                                 <div class="input-group-prepend">
                                   <div class="input-group-text"><i class="fa fa-lock"></i></div>
                                 </div>
-                                <input  class="form-control" type="{{ $type }}" wire:model="mdp" name="mdp" placeholder="*******" minlength="6" required>
+                                <input  class="form-control" type="{{ $type }}" wire:model="mdp" placeholder="*******" minlength="6" required>
                                 <span class="input-group-text" wire:click="voir()"> @if($testeur) <i class="fa fa-eye"></i> @else <i class="fa fa-eye-slash"></i> @endif </span>
                               </div>
                                 <br>

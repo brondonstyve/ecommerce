@@ -10,7 +10,7 @@
                     <div class="newsletter">
                         <p>Inscrivez-vous à la <strong>NEWSLETTER</strong></p>
                         <form>
-                            <input class="input" type="email" placeholder="Enter Your Email">
+                            <input class="input" type="email" placeholder="Entrez votre email">
                             <button class="newsletter-btn"><i class="fa fa-envelope"></i> Souscrire</button>
                         </form>
                         <ul class="newsletter-follow">
@@ -47,7 +47,7 @@
                     <div class="col-md-3 col-xs-6">
                         <div class="footer">
                             <h3 class="footer-title">A Propos de nous</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+                            <p>service client, produits innovants, prix abordables, livraison rapide, travail d'équipe.</p>
                             <ul class="footer-links">
                                 <li><a href="#"><i class="fa fa-map-marker"></i>Yaoundé Cameroun</a></li>
                                 <li><a href="#"><i class="fa fa-phone"></i>+237 697 32 09 74</a></li>
@@ -75,8 +75,8 @@
                         <div class="footer">
                             <h3 class="footer-title">Informations</h3>
                             <ul class="footer-links">
-                                <li><a href="#">A Propos</a></li>
-                                <li><a href="#">Contact</a></li>
+                                <li><a href="{{ route('propos_path') }}">A Propos</a></li>
+                                <li><a href="{{ route('contact_path') }}">Contact</a></li>
                                 <li><a href="#">Politique de confidentialité</a></li>
                                 <li><a href="#">Commandes et RetoursOrders and Returns</a></li>
                                 <li><a href="#">Termes et Conditions</a></li>
@@ -88,7 +88,7 @@
                         <div class="footer">
                             <h3 class="footer-title">Service</h3>
                             <ul class="footer-links">
-                                <li><a href="#">Mon Compte</a></li>
+                                <li><a href="{{ route('compte_path') }}">Mon Compte</a></li>
                                 <li><a href="#">Mon Panier</a></li>
                                 <li><a href="#">Mes Souhaits</a></li>
                                 <li><a href="#">Suivre ma commande</a></li>

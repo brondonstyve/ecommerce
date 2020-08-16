@@ -21,14 +21,15 @@ class Connexion extends Component
     }
 
     public function connexion(){
-        $email=$this->telephone;
-        $password=$this->mdp;
+        $email=encrypt($this->telephone);
+        $password=encrypt($this->mdp);
 
-        $reponse=Auth::attempt(['email' => $email, 'password' => $password]);
+        $reponse=Auth::attempt(['email' => decrypt($email), 'password' => decrypt($password)]);
         if ($reponse) {
            if (auth()->user()->type=='configureur') {
             return \redirect()->route('index_admin_path');
            }else {
+               session()->flash('success','Vous êtes actuellement connecté. profité de nos offres exceptionelles');
             return \redirect()->route('index_path');
            }
         }else{

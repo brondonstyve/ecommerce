@@ -17,7 +17,7 @@ class Connexion
     public function handle($request, Closure $next)
     {
         if (auth()->guest()) {
-            Flash::message('error_connexion','Session expirée! Veuillez vous reconnecter.');
+            Flash::message('error_connexion','Session expirée! Veuillez vous connecter.');
             return redirect()->route('connexion_path');
         }
         return $next($request);

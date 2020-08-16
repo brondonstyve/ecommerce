@@ -52,7 +52,7 @@ class Collection extends Component
 
     public function ajouterCollection(){
 
-        $name=Image::traitement($this->image,'png',600,500);
+        $name=Image::traitement($this->image,'png',600,400);
 
         //enreg
         $reponse=AppCollection::create([
@@ -139,7 +139,7 @@ class Collection extends Component
     public function confModif($id){
 
         if (!empty($this->image)) {
-            $name=Image::traitement($this->image,'png',600,500);
+            $name=Image::traitement($this->image,'png',600,400);
 
         //enreg
         $reponse=AppCollection::whereId($id)

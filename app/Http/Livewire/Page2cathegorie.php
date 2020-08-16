@@ -8,8 +8,12 @@ use Livewire\WithPagination;
 
 class Page2cathegorie extends Component
 {
-use WithPagination;
     public $select=6;
+    public $selection=-1;
+    public $marque;
+
+use WithPagination;
+
     public function render()
     {
 
@@ -22,5 +26,21 @@ use WithPagination;
 
     public function updatedSelect(){
         $this->resetPage();
+    }
+
+    public function getCathegoriesProperty(){
+        return Collection::renduCollectionCount('id','desc',10,'collections.nom');
+    }
+
+    public function getVenteProperty(){
+        return Collection::renduProduit('id','desc',6);
+    }
+
+     public function detail($id){
+        return redirect()->route('detail_produit_path',$id);
+    }
+
+    public function lien($id_col){
+        return redirect()->route('produit_path',$idCathegorie=encrypt($id_col));
     }
 }

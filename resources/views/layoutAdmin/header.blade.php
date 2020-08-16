@@ -44,101 +44,27 @@
               </div>
               <!-- List group -->
               <div class="list-group list-group-flush">
+                @for ($i = 0; $i < 15; $i++)
                 <a href="#!" class="list-group-item list-group-item-action">
-                  <div class="row align-items-center">
-                    <div class="col-auto">
-                      <!-- Avatar -->
-                      <img alt="Image placeholder" src="administrer/assets/img/theme/team-1.jpg" class="avatar rounded-circle">
-                    </div>
-                    <div class="col ml--2">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                          <h4 class="mb-0 text-sm">Brondobn Styve</h4>
-                        </div>
-                        <div class="text-right text-muted">
-                          <small>2 hrs ago</small>
-                        </div>
+                    <div class="row align-items-center">
+                      <div class="col-auto">
+                        <!-- Avatar -->
+                        <img alt="Image placeholder" src="administrer/assets/img/theme/team-1.jpg" class="avatar rounded-circle">
                       </div>
-                      <p class="text-sm mb-0">Let's meet at Starbucks at 11:30. Wdyt?</p>
-                    </div>
-                  </div>
-                </a>
-                <a href="#!" class="list-group-item list-group-item-action">
-                  <div class="row align-items-center">
-                    <div class="col-auto">
-                      <!-- Avatar -->
-                      <img alt="Image placeholder" src="administrer/assets/img/theme/team-2.jpg" class="avatar rounded-circle">
-                    </div>
-                    <div class="col ml--2">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                          <h4 class="mb-0 text-sm">John Snow</h4>
+                      <div class="col ml--2">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div>
+                            <h4 class="mb-0 text-sm">Brondobn Styve</h4>
+                          </div>
+                          <div class="text-right text-muted">
+                            <small>2 hrs ago</small>
+                          </div>
                         </div>
-                        <div class="text-right text-muted">
-                          <small>3 hrs ago</small>
-                        </div>
+                        <p class="text-sm mb-0">Let's meet at Starbucks at 11:30. Wdyt?</p>
                       </div>
-                      <p class="text-sm mb-0">A new issue has been reported for Argon.</p>
                     </div>
-                  </div>
-                </a>
-                <a href="#!" class="list-group-item list-group-item-action">
-                  <div class="row align-items-center">
-                    <div class="col-auto">
-                      <!-- Avatar -->
-                      <img alt="Image placeholder" src="administrer/assets/img/theme/team-3.jpg" class="avatar rounded-circle">
-                    </div>
-                    <div class="col ml--2">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                          <h4 class="mb-0 text-sm">John Snow</h4>
-                        </div>
-                        <div class="text-right text-muted">
-                          <small>5 hrs ago</small>
-                        </div>
-                      </div>
-                      <p class="text-sm mb-0">Your posts have been liked a lot.</p>
-                    </div>
-                  </div>
-                </a>
-                <a href="#!" class="list-group-item list-group-item-action">
-                  <div class="row align-items-center">
-                    <div class="col-auto">
-                      <!-- Avatar -->
-                      <img alt="Image placeholder" src="administrer/assets/img/theme/team-4.jpg" class="avatar rounded-circle">
-                    </div>
-                    <div class="col ml--2">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                          <h4 class="mb-0 text-sm">John Snow</h4>
-                        </div>
-                        <div class="text-right text-muted">
-                          <small>2 hrs ago</small>
-                        </div>
-                      </div>
-                      <p class="text-sm mb-0">Let's meet at Starbucks at 11:30. Wdyt?</p>
-                    </div>
-                  </div>
-                </a>
-                <a href="#!" class="list-group-item list-group-item-action">
-                  <div class="row align-items-center">
-                    <div class="col-auto">
-                      <!-- Avatar -->
-                      <img alt="Image placeholder" src="administrer/assets/img/theme/team-5.jpg" class="avatar rounded-circle">
-                    </div>
-                    <div class="col ml--2">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                          <h4 class="mb-0 text-sm">John Snow</h4>
-                        </div>
-                        <div class="text-right text-muted">
-                          <small>3 hrs ago</small>
-                        </div>
-                      </div>
-                      <p class="text-sm mb-0">A new issue has been reported for Argon.</p>
-                    </div>
-                  </div>
-                </a>
+                  </a>
+                @endfor
               </div>
               <!-- View all -->
               <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">View all</a>
@@ -223,9 +149,9 @@
                 <span>Support</span>
               </a>
               <div class="dropdown-divider"></div>
-              <a href="#!" class="dropdown-item">
+              <a href="{{ route('deconnexion_path') }}" class="dropdown-item">
                 <i class="ni ni-user-run"></i>
-                <span>Logout</span>
+                <span>Déconnexion</span>
               </a>
             </div>
           </li>

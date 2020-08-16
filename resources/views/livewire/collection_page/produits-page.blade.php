@@ -18,7 +18,7 @@
                             @if ($condition=='marque')
                             <span class="text-danger"> {{ $selection }} </span>
                             @else
-                            <span class="text-danger"> @if($selection==-1) Tout @else  {{ $this->produit[0]->collection }} @endif </span>
+                            <span class="text-danger"> @if($selection==-1) Tout @else  @if($this->produit->total()!=0) {{ $this->produit[0]->collection }} @endif @endif </span>
                             @endif
                         </label>
 
@@ -40,12 +40,80 @@
 
                 <!-- store products -->
                 <div class="row">
-                    <div id="rafraichisseur" data-size="{{ sizeOf($this->produit) }}"></div>
+
+                    @if($this->produit->total()==0)
+                       <div class="alert alert-danger">
+                           <span>
+                               les produits de cette collection viennent d'être terminés. nos Fournisseur sont entrain de remplir les stocks veuillez consultez autres cathégories en attendant qu'ils terminent.
+                           </span>
+                       </div>
+
+                       <div id="rafraichisseur" data-size="{{ $this->autreproduit->total() }}"></div>
+
+
+                       @foreach ($this->autreproduit as $key=>$item)
+                            <!-- product -->
+                        <div class="col-md-4 col-xs-6">
+                            <div class="product">
+                                <div class="product-img" wire:click='detail({{ $item->id }})'>
+                                    @php
+                                      $image=explode('|',$item->image);
+                                      $indice=rand(1,sizeOf($image)-1);
+                                      $image=$image[$indice];
+                                    @endphp
+                                    <input type="hidden" id="img{{ $key }}" value="{{ $item->image }}">
+                                    <img src="{{ 'storage/'.$image }}" alt="" id="remplacer{{ $key }}">
+                                    <div class="product-label">
+                                        <span class="sale">-30%</span>
+                                        <span class="new">NEW</span>
+                                    </div>
+                                </div>
+                                <div class="product-body">
+                                    <p class="product-category">{{ $item->collection }}</p>
+                                    <h3 class="product-name"><a href="#" data-toggle="modal" wire:click='detail({{ $item->id }})'>{{ $item->nom }}</a></h3>
+                                    <h4 class="product-price">{{ $item->prix }} <del class="product-old-price">{{ $item->prix+ $item->prix *0.3 }}</del></h4>
+                                    <div class="product-rating">
+                                        <i class="fa fa-check-circle-o text-danger"></i>
+                                        <i class="fa fa-check-circle-o text-danger"></i>
+                                        <i class="fa fa-check-circle-o text-danger"></i>
+                                        <i class="fa fa-check-circle-o text-danger"></i>
+                                        <i class="fa fa-check-circle-o text-danger"></i>
+                                    </div>
+                                    <div class="product-btns">
+                                        <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">Ajouter a vos souhaits</span></button>
+                                        <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">Ajouter pour comparer</span></button>
+                                        <button class="quick-view" wire:click='detail({{ $item->id }})'><i class="fa fa-eye"></i><span class="tooltipp">Cliquez pour voir</span></button>
+                                    </div>
+                                </div>
+                                <div class="add-to-cart">
+                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Ajouter au panier</button>
+                                </div>
+                            </div>
+                        </div>
+                       @endforeach
+
+
+                        <div class="clearfix visible-lg visible-md visible-sm visible-xs"></div>
+
+                    <!-- /store products -->
+
+                    <!-- store bottom filter -->
+                    <div class="text-right">
+                        {{ $this->autreproduit->links() }}
+                    </div>
+                    <!-- /store bottom filter -->
+
+                    @endif
+
+
+
+
+                    <div id="rafraichisseur" data-size="{{ $this->produit->total() }}"></div>
                    @foreach ($this->produit as $key=>$item)
                         <!-- product -->
                     <div class="col-md-4 col-xs-6">
                         <div class="product">
-                            <div class="product-img">
+                            <div class="product-img" wire:click='detail({{ $item->id }})'>
                                 @php
                                   $image=explode('|',$item->image);
                                   $indice=rand(1,sizeOf($image)-1);
@@ -60,23 +128,23 @@
                             </div>
                             <div class="product-body">
                                 <p class="product-category">{{ $item->collection }}</p>
-                                <h3 class="product-name"><a href="#">{{ $item->nom }}</a></h3>
+                                <h3 class="product-name"><a href="#" data-toggle="modal" wire:click='detail({{ $item->id }})'>{{ $item->nom }}</a></h3>
                                 <h4 class="product-price">{{ $item->prix }} <del class="product-old-price">{{ $item->prix+ $item->prix *0.3 }}</del></h4>
                                 <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-check-circle-o text-danger"></i>
+                                    <i class="fa fa-check-circle-o text-danger"></i>
+                                    <i class="fa fa-check-circle-o text-danger"></i>
+                                    <i class="fa fa-check-circle-o text-danger"></i>
+                                    <i class="fa fa-check-circle-o text-danger"></i>
                                 </div>
                                 <div class="product-btns">
                                     <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">Ajouter a vos souhaits</span></button>
                                     <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">Ajouter pour comparer</span></button>
-                                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Cliquez pour voir</span></button>
+                                    <button class="quick-view" wire:click='detail({{ $item->id }})'><i class="fa fa-eye"></i><span class="tooltipp">Cliquez pour voir</span></button>
                                 </div>
                             </div>
                             <div class="add-to-cart">
-                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Ajouter à la carte</button>
+                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> ajouter au panier</button>
                             </div>
                         </div>
                     </div>
@@ -84,6 +152,7 @@
 
 
                     <div class="clearfix visible-lg visible-md visible-sm visible-xs"></div>
+
 
                 </div>
                 <!-- /store products -->
@@ -200,7 +269,7 @@
                 <!-- aside Widget -->
                 <div class="aside">
                     <h3 class="aside-title">Meilleures Ventes</h3>
-                    <div id="rafraichisseurVente" data-size="{{ sizeOf($this->vente) }}"></div>
+                    <div id="rafraichisseurVente" data-size="{{ $this->vente->total() }}"></div>
                     @foreach ($this->vente as $item)
                     <div class="product-widget">
                         <div class="product-img">
@@ -209,12 +278,11 @@
                                   $indice=rand(1,sizeOf($image)-1);
                                   $image=$image[$indice];
                                 @endphp
-                                <input type="hidden" id="imgVente{{ $key }}" value="{{ $item->image }}">
-                                <img src="{{ 'storage/'.$image }}" alt="" id="remplacerVente{{ $key }}">
+                                <img src="{{ 'storage/'.$image }}" alt="" id="remplacerVente{{ $key }}" wire:click='detail({{ $item->id }})'>
                         </div>
                         <div class="product-body">
-                            <p class="product-category">{{ $item->collection }}</p>
-                            <h3 class="product-name"><a href="#">{{ $item->nom }}</a></h3>
+                            <p class="product-category" ><a href="#" wire:click='marque("{{ $item->marque }}")'>{{ $item->collection }}</a></p>
+                            <h3 class="product-name" ><a href="#!" wire:click='detail({{ $item->id }})'>{{ $item->nom }}</a></h3>
                             <h4 class="product-price">{{ $item->prix }} <del class="product-old-price"> {{ $item->prix + ($item->prix*0.3) }}</del></h4>
                         </div>
                     </div>

@@ -19,6 +19,7 @@ class CreateProduitsTable extends Migration
             $table->string('nom');
             $table->string('marque');
             $table->double('prix');
+            $table->integer('quantite')->unsigned();
             $table->string('image');
             $table->boolean('statut')->default(false);
             $table->foreign('collection')->on('collections')->references('id')->onDelete('cascade');

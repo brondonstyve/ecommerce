@@ -23,6 +23,7 @@ class ProduitAdmin extends Component
     public $marque;
     public $cathegorie;
     public $prix;
+    public $qte;
     public $image;
     public $imageAnc;
     public $supp;
@@ -51,6 +52,7 @@ class ProduitAdmin extends Component
         $this->image=null;
         $this->nom=null;
         $this->prix=null;
+        $this->qte=null;
         $this->marque=null;
         $this->cathegorie=null;
     }
@@ -69,7 +71,7 @@ class ProduitAdmin extends Component
 
         $name='';
         foreach ($this->image as $key => $value) {
-            $name=$name.'|'.Image::traitement($this->image[$key],'png',600,500);
+            $name=$name.'|'.Image::traitement($this->image[$key],'png',600,400);
         }
 
         //enreg
@@ -77,6 +79,7 @@ class ProduitAdmin extends Component
             'collection'=>$this->cathegorie,
             'nom'=>$this->nom,
             'marque'=>$this->marque,
+            'quantite'=>$this->qte,
             'prix'=>$this->prix,
             'image'=>$name,
         ]);
@@ -89,6 +92,7 @@ class ProduitAdmin extends Component
             $this->modifier=false;
             $this->image=null;
             $this->nom=null;
+            $this->qte=null;
             $this->prix=null;
             $this->marque=null;
             $this->supp=-1;
@@ -103,7 +107,7 @@ class ProduitAdmin extends Component
     public function getPostProperty()
     {
         return AppProduit::join('collections','collections.id','=','produits.collection')
-        ->select('collections.nom as collection','produits.nom','produits.marque','produits.prix','produits.statut','produits.image','produits.id')
+        ->select('collections.nom as collection','produits.nom','produits.marque','produits.quantite','produits.prix','produits.statut','produits.image','produits.id')
         ->orderBy('id','desc')
         ->paginate(3);
     }
@@ -164,6 +168,7 @@ class ProduitAdmin extends Component
         $this->marque=$reponse->marque;
         $this->cathegorie=$reponse->collection;
         $this->prix=$reponse->prix;
+        $this->qte=$reponse->quantite;
         $this->num=$id;
 
         $this->liste=false;
@@ -177,7 +182,7 @@ class ProduitAdmin extends Component
         if (!empty($this->image)) {
             $name='';
         foreach ($this->image as $key => $value) {
-            $name=$name.'|'.Image::traitement($this->image[$key],'png',600,500);
+            $name=$name.'|'.Image::traitement($this->image[$key],'png',600,400);
         }
 
         //enreg
@@ -187,6 +192,7 @@ class ProduitAdmin extends Component
             'nom'=>$this->nom,
             'marque'=>$this->marque,
             'prix'=>$this->prix,
+            'quantite'=>$this->qte,
             'image'=>$name,
         ]);
         } else {
@@ -195,6 +201,7 @@ class ProduitAdmin extends Component
                 'collection'=>$this->cathegorie,
                 'nom'=>$this->nom,
                 'marque'=>$this->marque,
+                'quantite'=>$this->qte,
                 'prix'=>$this->prix,
            ]);
 
@@ -208,6 +215,7 @@ class ProduitAdmin extends Component
             $this->ajouter=false;
             $this->modifier=false;
             $this->image=null;
+            $this->qte=null;
             $this->nom=null;
             $this->prix=null;
             $this->marque=null;

@@ -62,17 +62,17 @@
                                     <th scope="col" class="sort">Nom</th>
                                     <th scope="col" class="sort">Marque</th>
                                     <th scope="col" class="sort">Prix</th>
+                                    <th scope="col" class="sort">quantité</th>
                                     <th scope="col">image</th>
                                     <th scope="col" class="sort">Statut</th>
                                     <th scope="col">Manipulations</th>
-                                    <th scope="col">Validations</th>
 
                                 </tr>
                             </thead>
                             <tbody class="list">
                                 @foreach ($this->post as $item)
                                 <tr>
-                                    <th class="budget text-uppercase">
+                                    <th class="">
                                         {{ $item->collection }}
                                     </th>
                                     <td>
@@ -85,6 +85,10 @@
 
                                     <td>
                                         {{ $item->prix }}
+                                    </td>
+
+                                    <td>
+                                        {{ $item->quantite }}
                                     </td>
 
                                     <td>
@@ -135,16 +139,12 @@
                                             <br>
 
                                         </div>
-
-
-                                    </td>
-
-                                    <td>
                                         <span wire:loading>Patientez...</span>
                                         @if ($supp==$item->id)
                                         <button type="button" class="btn btn-danger" wire:loading.remove
                                             wire:click="supprimer({{ $item->id }})" id="btn-sup">Confirmer</button>
                                         @endif
+
                                     </td>
                                 </tr>
 
@@ -193,6 +193,12 @@
                                         <label class="form-control-label">Prix</label>
                                         <input class="form-control" type="number" wire:model="prix" min="0"
                                             placeholder="Prix du Produit" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-control-label">Quantité</label>
+                                        <input class="form-control" type="number" wire:model="qte" min="1"
+                                            placeholder="Quantité du Produit" required>
                                     </div>
 
                                     <label class="form-control-label">Image</label>
@@ -271,6 +277,12 @@
                                         <label class="form-control-label">Prix</label>
                                         <input class="form-control" type="number" wire:model="prix"
                                             placeholder="Prix du Produit" value="{{ $prix }}" min="0" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-control-label">Quantité</label>
+                                        <input class="form-control" type="number" wire:model="qte" min="1" value="{{ $qte }}"
+                                            placeholder="Quantité du Produit" required>
                                     </div>
 
                                     <label class="form-control-label">Image</label>
