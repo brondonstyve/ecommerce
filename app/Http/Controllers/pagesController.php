@@ -24,6 +24,8 @@ class pagesController extends Controller
     }
 
     public function connexion(){
+        //return (bcrypt(123456));
+
         $title='Connexion';
         return view('pages/index',compact('title'));
     }

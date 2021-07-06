@@ -30,11 +30,11 @@ Route::get('/souhait', 'pagesController@souhait')->name('ajouter_souhait_path');
 
 Route::group(['middleware' => 'Connexion'], function () {
     //admin
-    Route::get('Administration', 'pagesController@administration')->name('index_admin_path');
-    Route::get('Collections', 'pagesController@collection')->name('collection_admin_path');
-    Route::get('Gerer les Produit', 'pagesController@produitAdmin')->name('produit_admin_path');
-    Route::get('Mon-panier', 'pagesController@monPanier')->name('mon_panier_path');
-    Route::get('Mes-souhaits', 'pagesController@mesSouhaits')->name('mes_souhaits_path');
+    Route::get('/Administration', 'pagesController@administration')->name('index_admin_path');
+    Route::get('/Collections', 'pagesController@collection')->name('collection_admin_path');
+    Route::get('/Gerer les Produit', 'pagesController@produitAdmin')->name('produit_admin_path');
+    Route::get('/Mon-panier', 'pagesController@monPanier')->name('mon_panier_path');
+    Route::get('/Mes-souhaits', 'pagesController@mesSouhaits')->name('mes_souhaits_path');
 });
 
 

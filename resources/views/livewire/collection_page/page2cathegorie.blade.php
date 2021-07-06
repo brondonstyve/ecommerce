@@ -41,7 +41,7 @@
                 <div class="row">
                     <!-- product -->
 
-                @foreach ($this->cathegorie as $item)
+                @foreach ($this->cathegorie as $item) 
                 <div class="col-md-4 col-xs-6">
                     <div class="product">
 

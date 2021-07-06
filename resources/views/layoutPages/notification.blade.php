@@ -21,7 +21,6 @@
           </div>
 
           <div class="modal-footer">
-              <button type="button" id="btn" class="btn btn-dark" style="background-color: black">Voir le panier</button>
               <button type="button" class="btn btn-danger text-white ml-auto" data-dismiss="modal">Continuer les achats</button>
           </div>
 
@@ -30,3 +29,4 @@
 </div>
 
 </div>
+

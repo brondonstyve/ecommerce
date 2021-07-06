@@ -76,13 +76,13 @@
                                                         <i class="fa fa-check-circle-o text-danger"></i>
                                                     </div>
                                                     <div class="product-btns">
-                                                        <button class="add-to-wishlist" data-souhait="{{ $item->id }}"><i class="fa fa-heart-o"></i><span class="tooltipp">Ajouter a vos souhaits</span></button>
+                                                        <button class="add-to-wishlist souhait" data-souhait="{{ $item->id }}"><i class="fa fa-heart-o"></i><span class="tooltipp">Ajouter a vos souhaits</span></button>
                                                         <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">Ajouter pour comparer</span></button>
                                                         <button class="quick-view"><a href="{{ route('detail_produit_path',$item->id) }}"><i class="fa fa-eye"></i></a><span class="tooltipp">Cliquez pour voir</span></button>
                                                     </div>
                                                 </div>
                                                 <div class="add-to-cart">
-                                                    <button class="add-to-cart-btn" data-id="{{ $item->id }}"><i class="fa fa-shopping-cart"></i> Ajouter à la carte</button>
+                                                    <button class="add-to-cart-btn pannier" data-id="{{ $item->id }}"><i class="fa fa-shopping-cart"></i> Ajouter à la carte</button>
                                                 </div>
                                             </div>
                                         </div>

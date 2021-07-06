@@ -57,6 +57,7 @@ class Souhait extends Component
 
     public function supprimer($id){
         AppSouhait::destroy($id);
+        $this->emitTo('addsouhait', 'refreshComponent');
     }
 
 

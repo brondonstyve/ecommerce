@@ -86,11 +86,11 @@
                                     </div>
                                 </div>
                                 <div class="add-to-cart">
-                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Ajouter au panier</button>
+                                    <button class="add-to-cart-btn" wire:click='ajouterAuPannier({{$items->id}},{{$items->nom}})'><i class="fa fa-shopping-cart"></i> Ajouter au panier</button>
                                 </div>
                             </div>
                         </div>
-                       @endforeach
+                       @endforeach 
 
 
                         <div class="clearfix visible-lg visible-md visible-sm visible-xs"></div>
@@ -138,13 +138,13 @@
                                     <i class="fa fa-check-circle-o text-danger"></i>
                                 </div>
                                 <div class="product-btns">
-                                    <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">Ajouter a vos souhaits</span></button>
+                                    <button class="add-to-wishlist" wire:click='ajouterAuSouhait({{$item->id}},"{{$item->nom}}")'><i class="fa fa-heart-o"></i><span class="tooltipp">Ajouter a vos souhaits</span></button>
                                     <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">Ajouter pour comparer</span></button>
                                     <button class="quick-view" wire:click='detail({{ $item->id }})'><i class="fa fa-eye"></i><span class="tooltipp">Cliquez pour voir</span></button>
                                 </div>
                             </div>
                             <div class="add-to-cart">
-                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> ajouter au panier</button>
+                                <button class="add-to-cart-btn" wire:click='ajouterAuPannier({{$item->id}},"{{$item->nom}}")'><i class="fa fa-shopping-cart"></i> Ajouter au panier</button>
                             </div>
                         </div>
                     </div>
@@ -196,7 +196,7 @@
 
                         <div class="input-checkbox" >
                             <a href="#">
-                                @if($item->id==$selection)
+                                @if($item->id==$selection) 
                                 <i class="fa fa-check-circle text-danger" wire:click='checkbox({{ $item->id }})'></i>
                                 @else
                                 <i class="fa fa-circle-o text-danger" wire:click='checkbox({{ $item->id }})'></i>
@@ -299,6 +299,41 @@
     <!-- /container -->
 </div>
 <!-- /SECTION -->
+
+
+<div class="col-md-4 text-white">
+    <div class="modal fade" id="modal-large" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
+  <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+      <div class="modal-content bg-gradient-danger">
+
+          <div class="modal-header">
+              <h6 class="modal-title text-white" style="font-size: 15px" id="modal-title-notification">Message d'alerte</h6>
+              <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+              </button>
+          </div>
+
+          <div class="modal-body">
+
+              <div class="py-3 text-center">
+                  <i class="fa fa-bell fa-3x"></i>
+                  <h4 class="heading mt-4">Notification!</h4>
+                  <p class="msg-panier">{!! $message !!}</p>
+              </div>
+
+          </div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-danger text-white ml-auto" data-dismiss="modal">Continuer les achats</button>
+          </div>
+
+      </div>
+  </div>
+</div>
+
+</div>
+
+
 
 </div>
 

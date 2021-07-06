@@ -107,7 +107,7 @@
     }, 1);
 
 
-    $(document).on('click','.add-to-cart-btn',function(e){
+    $(document).on('click','.pannier',function(e){
         var id=$(this).data('id');
         var url='panier';
 
@@ -117,7 +117,7 @@
             } else {
                 if (data=='existant') {
                 $('#btn').replaceWith('<button type="button" id="btn" class="btn btn-dark" style="background-color: black">Voir le panier</button>');
-                $('.msg-panier').replaceWith('<p class="msg-panier">Ce produit est déjà present dans votre panier!<br> Consulter votre panier <a href="#!">ici</a>.</p>');
+                $('.msg-panier').replaceWith('<p class="msg-panier">Ce produit est déjà present dans votre panier!<br> Consulter votre panier <a href="{{ route("mon_panier_path") }}">ici</a>.</p>');
                 $('.notificateur').click();
                 } else {
                 $('#retirer-list').remove();
@@ -141,8 +141,7 @@
             $('#small').replaceWith('<small id="smal" data-small="'+small+'">'+small+' produits selectionnés</small>');
             $('#small1').replaceWith('<small id="smal1" data-small1="'+small1+'">'+small1+' produits selectionnés</small>');
             $('#sous-total').replaceWith('<h5 id="sous-total" data-st="'+st+'">SOUS TOTAL: '+st+'</h5>');
-            $('#btn').replaceWith('<button type="button" id="btn" class="btn btn-dark" style="background-color: black">Voir le panier</button>');
-              $('.msg-panier').replaceWith('<p class="msg-panier">Votre produit '+data[0].nom+' a été ajouté au panier avec succés!<br> Consulter votre panier <a href="#!">ici</a>.</p>');
+              $('.msg-panier').replaceWith('<p class="msg-panier">Votre produit '+data[0].nom+' a été ajouté au panier avec succés!<br> Consulter votre panier <a href="{{ route("mon_panier_path") }}">ici</a>.</p>');
               $('.notificateur').click();
                 }
             }
@@ -153,7 +152,7 @@
 
 
 
-    $(document).on('click','.add-to-wishlist',function(e){
+    $(document).on('click','.souhait',function(e){
         var id=$(this).data('souhait');
         var url='souhait';
 
@@ -162,17 +161,22 @@
                 window.location='Connexion';
             } else {
                 if (data=='existant') {
-                $('#btn').replaceWith('<button type="button" id="btn" class="btn btn-dark" style="background-color: black">Voir les souhaits</button>');
-                $('.msg-panier').replaceWith('<p class="msg-panier">Ce produit est déjà present dans votre liste de souhait!<br> Consulter vos souhait <a href="#!">ici</a>.</p>');
+                $('.msg-panier').replaceWith('<p class="msg-panier">Ce produit est déjà present dans votre liste de souhait!<br> Consulter vos souhait <a href="{{ route("mes_souhaits_path") }}">ici</a>.</p>');
                 $('.notificateur').click();
                 } else {
                     var souhait=(parseInt($('#souhait').data('souhait'))+1)
               $('#souhait').replaceWith('<div class="qty" id="souhait" data-souhait="'+souhait+'">'+souhait+'</div>');
-              $('#btn').replaceWith('<button type="button" id="btn" class="btn btn-dark" style="background-color: black">Voir les souhaits</button>');
               $('.msg-panier').replaceWith('<p class="msg-panier">Votre produit '+data[0].nom+' a été ajouté à la liste de vos souhaits avec succés!<br> Consulter vos souhaits <a href="#!">ici</a>.</p>');
               $('.notificateur').click();
                 }
             }
         })
-    })
+    });
+
+
+    window.addEventListener('AddPannier',event=>{
+            $('#modal-large').modal('show');
+    });
+
+
 </script>

@@ -25,6 +25,7 @@ class Collection{
         ->select($colone,DB::raw('count(produits.id) as nombre'),'collections.id')
         ->orderBy($order,$type)
         ->groupBy('produits.id')
+        ->distinct()
         ->paginate($nbp);
     }
 
@@ -74,6 +75,44 @@ class Collection{
         ->whereCompte($id)
         ->get();
     }
+
+    public static function ajouterAuPannier($id){
+        $reponse=panier::whereCompteAndProduit(auth()->user()->id,$id)->get();
+           if (sizeOf($reponse)>=1) {
+               return false;
+           } else {
+            $reponse=panier::create([
+                'compte'=>auth()->user()->id,
+                'produit'=>$id,
+                'quantite'=>1,
+            ]);
+            if ($reponse) {
+                return true;
+            } else {
+                return 'error';
+            }
+            
+        }
+    } 
+
+
+    public static function ajouterAuSouhait($id){
+        $reponse=souhait::whereCompteAndProduit(auth()->user()->id,$id)->get();
+           if (sizeOf($reponse)>=1) {
+               return false;
+           } else {
+            $reponse=souhait::create([
+                'compte'=>auth()->user()->id,
+                'produit'=>$id,
+            ]);
+            if ($reponse) {
+                return true;
+            } else {
+                return 'error';
+            }
+            
+        }
+    } 
 
 
 }

@@ -58,6 +58,8 @@ class Collection extends Component
         $reponse=AppCollection::create([
             'nom'=>$this->nom,
             'image'=>$name,
+            'statut'=>true
+
         ]);
         if ($reponse) {
             $this->flashType='success';
