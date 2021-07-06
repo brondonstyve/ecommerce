@@ -8,6 +8,7 @@ use App\Helpers\Image;
 use Livewire\WithFileUploads;
 use App\Helpers\Flash;
 use App\models\collection;
+use App\models\couleur;
 use Livewire\WithPagination;
 
 class ProduitAdmin extends Component
@@ -15,6 +16,7 @@ class ProduitAdmin extends Component
 
     use WithFileUploads;
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public $liste=true;
     public $ajouter=false;
@@ -25,6 +27,7 @@ class ProduitAdmin extends Component
     public $prix;
     public $qte;
     public $image;
+    public $couleur;
     public $imageAnc;
     public $supp;
     public $flashType='';
@@ -69,6 +72,9 @@ class ProduitAdmin extends Component
 
     public function ajouterProduit(){
 
+        
+        dd($this->couleur);
+        
         $name='';
         foreach ($this->image as $key => $value) {
             $name=$name.'|'.Image::traitement($this->image[$key],'png',600,400);
@@ -112,9 +118,17 @@ class ProduitAdmin extends Component
         ->paginate(3);
     }
 
+
+
      public function getCathegoriesProperty()
     {
         return collection::select('id','nom')
+        ->get();
+    }
+
+    public function getCouleursProperty()
+    {
+        return couleur::select('id','libelle')
         ->get();
     }
 

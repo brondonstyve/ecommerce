@@ -160,5 +160,11 @@ class pagesController extends Controller
         return redirect()->route('connexion_path');
     }
 
+    public function mesCouleurs(){
+        $title='Couleur';
+        return view('administration/index',compact('title'));
+    }
+    
+
 
 }

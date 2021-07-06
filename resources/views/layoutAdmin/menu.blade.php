@@ -34,9 +34,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="examples/profile.html">
-                  <i class="ni ni-single-02 text-yellow"></i>
-                  <span class="nav-link-text">Profile</span>
+                <a class="nav-link" href="{{ route('mes_couleurs_path') }}">
+                  <i class="ni ni-ui-04 text-yellow"></i>
+                  <span class="nav-link-text">Couleur</span>
                 </a>
               </li>
               <li class="nav-item">

@@ -17,7 +17,7 @@
                     <div id="product-tab">
                         <!-- product tab nav -->
                         <ul class="tab-nav">
-                            <li class="active"><a data-toggle="tab" href="#tab3">Commentaires ({{ sizeOf($this->commentaires) }})</a></li>
+                            <li class="active"><a data-toggle="tab" href="#tab3" id="ta">Commentaires ({{ sizeOf($this->commentaires) }})</a></li>
                             <li><a data-toggle="tab" href="#tab1">Description</a></li>
                             <li><a data-toggle="tab" href="#tab2">Détails</a></li>
                         </ul>

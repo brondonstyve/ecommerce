@@ -51,7 +51,7 @@
                                      <i class="fa fa-star-o"></i>
                                      <i class="fa fa-star-o"></i>
                                 </div>
-                                <a class="review-link" href="#">0 Commentaire | Soyez le premier à ajouter votre avis</a>
+                                <a class="review-link" href="#ta">0 Commentaire | Soyez le premier à ajouter votre avis</a>
                             </div>
 
 
@@ -92,7 +92,7 @@
                                         @endif
                                     @endfor
                                     </div>
-                                    <a class="review-link" href="#">{{ sizeOf($comment) }} Commentaire(s) | Ajouter votre avis</a>
+                                    <a class="review-link" href="#ta">{{ sizeOf($comment) }} Commentaire(s) | Ajouter votre avis</a>
                                 </div>
                             @endif
 

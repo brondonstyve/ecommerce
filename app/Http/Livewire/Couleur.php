@@ -2,14 +2,13 @@
 
 namespace App\Http\Livewire;
 
-use App\models\collection as AppCollection;
-use App\Helpers\Image;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use App\Helpers\Flash;
 use Livewire\WithPagination;
+use App\models\couleur as AppCollection;
+use App\Helpers\Flash;
 
-class Collection extends Component
+class Couleur extends Component
 {
     use WithFileUploads;
     use WithPagination;
@@ -51,31 +50,36 @@ class Collection extends Component
 
 
 
-    public function ajouterCollection(){
+    public function ajouterCouleur(){
 
-        $name=Image::traitement($this->image,'png',600,400);
 
-        //enreg
+        $reponse=AppCollection::whereLibelle($this->nom)->first();
+
+        if ($reponse) {
+            $this->flashType='danger';
+            Flash::message($this->flashType,"la couleur * $this->nom * exite déjà.");
+        } else {
+            //enreg
         $reponse=AppCollection::create([
-            'nom'=>$this->nom,
-            'image'=>$name,
-            'statut'=>true
+            'libelle'=>$this->nom,
 
         ]);
         if ($reponse) {
             $this->flashType='success';
-            Flash::message($this->flashType,'Collection enregistré avec succès');
+            Flash::message($this->flashType,'Couleur enregistrée avec succès');
             $this->resetPage();
             $this->liste=true;
             $this->ajouter=false;
             $this->modifier=false;
-            $this->image=null;
             $this->nom=null;
             $this->supp=-1;
     }else{
             $this->flashType='danger';
-            Flash::message($this->flashType,'Erreur lors de l\'enregistrement de la Collection');
+            Flash::message($this->flashType,'Erreur lors de l\'enregistrement de la couleur');
         }
+        }
+        
+        
 
     }
 
@@ -83,31 +87,10 @@ class Collection extends Component
     public function getPostProperty()
     {
         return AppCollection::orderBy('id','desc')
-        ->paginate(3);
+        ->paginate(25);
     }
 
-    //
-    public function statut($id){
-        $reponse=AppCollection::find($id);
-        if ($reponse->statut==true) {
-            $reponse->statut=false;
-            $this->supp=-1;
-            $reponse->save();
-            $this->flashType='success';
-            Flash::message($this->flashType,'Statut mis a jour avec succès');
-        } else {
-            $reponse->statut=true;
-            $reponse->save();
-            $this->flashType='success';
-            Flash::message($this->flashType,'Statut mis a jour avec succès');
-        }
-
-
-    }
-
-    public function voir($id){
-        $this->image=AppCollection::whereId($id)->get('image');
-    }
+   
 
     public function confSupp($id){
         $this->supp=$id;
@@ -129,8 +112,7 @@ class Collection extends Component
     public function modifier($id){
 
         $reponse=AppCollection::find($id);
-        $this->imageAnc=$reponse->image;
-        $this->nom=$reponse->nom;
+        $this->nom=$reponse->libelle;
         $this->num=$reponse->id;
 
         $this->liste=false;
@@ -141,18 +123,23 @@ class Collection extends Component
 
     public function confModif($id){
 
-        if (!empty($this->image)) {
-            $name=Image::traitement($this->image,'png',600,400);
+        $reponse=AppCollection::where([
+            ['libelle',$this->nom],
+            ['id','<>',$id],
+        ])->first();
+       
 
-        //enreg
-        $reponse=AppCollection::whereId($id)
+        if ($reponse) {
+            $this->flashType='danger';
+            Flash::message($this->flashType,"la couleur * $this->nom * exite déjà.");
+        } else {
+            $reponse=AppCollection::whereId($id)
          ->update([
-            'nom'=>$this->nom,
-            'image'=>$name,
+            'libelle'=>$this->nom,
         ]);
         if ($reponse) {
             $this->flashType='success';
-            Flash::message($this->flashType,'Collection modifié avec succès');
+            Flash::message($this->flashType,'Couleur modifiée avec succès');
             $this->liste=true;
             $this->ajouter=false;
             $this->modifier=false;
@@ -161,34 +148,17 @@ class Collection extends Component
             $this->supp=-1;
     }else{
             $this->flashType='danger';
-            Flash::message($this->flashType,'Erreur lors de la modification de la Collection');
+            Flash::message($this->flashType,'Erreur lors de la modification de la Couleur');
         }
-        } else {
-            $reponse=AppCollection::whereId($id)
-            ->update([
-               'nom'=>$this->nom,
-           ]);
-           if ($reponse) {
-               $this->flashType='success';
-               Flash::message($this->flashType,'Collection modifié avec succès');
-               $this->liste=true;
-               $this->ajouter=false;
-               $this->modifier=false;
-               $this->image=null;
-               $this->nom=null;
-               $this->supp=-1;
-       }else{
-               $this->flashType='danger';
-               Flash::message($this->flashType,'Erreur lors de la modification de la Collection');
-           }
         }
+        
+         
 
     }
 
-    //rendu
 
     public function render()
     {
-        return view('livewire.collection_admin.collection');
+        return view('livewire.collection_admin.couleur');
     }
 }

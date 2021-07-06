@@ -27,11 +27,11 @@ class ProduitsPage extends Component
     }
 
     public function getCathegorieProperty(){
-        return Collection::renduCollectionCount('id','desc',10,'collections.nom');
+        return Collection::renduCollectionCathegorie();
     }
 
     public function getMarquesProperty(){
-        return Collection::renduCollectionCount('id','desc',10,'produits.marque');
+        return Collection::renduCollectionMarque();
     }
 
     public function getVenteProperty(){

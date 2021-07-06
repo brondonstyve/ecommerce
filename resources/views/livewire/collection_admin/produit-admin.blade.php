@@ -201,6 +201,15 @@
                                             placeholder="Quantité du Produit" required>
                                     </div>
 
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect2">Couleur (Maintenez la touche controle *ctrl* puis sélectionnez autant de couleur que vous voulez)</label>
+                                        <select multiple="" class="form-control" id="exampleFormControlSelect2" wire:models.lazy='couleur'>
+                                          @foreach ($this->couleurs as $coul)
+                                           <option value="{{ $coul->id }}" > {{ $coul->libelle }} </option>
+                                          @endforeach
+                                        </select>
+                                      </div>
+
                                     <label class="form-control-label">Image</label>
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" accept="image/*" name="image"

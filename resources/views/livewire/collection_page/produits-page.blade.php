@@ -240,7 +240,7 @@
                 <div class="aside">
                     <h3 class="aside-title">Marques</h3>
                     <div class="checkbox-filter">
-
+ 
                         @foreach ($this->marques as $key=>$item)
 
                         <div class="input-checkbox" >

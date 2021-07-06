@@ -23,11 +23,29 @@ class Collection{
         return DB::table('produits')
         ->join('collections','collections.id','=','produits.collection')
         ->select($colone,DB::raw('count(produits.id) as nombre'),'collections.id')
-        ->orderBy($order,$type)
+        ->orderBy($order,$type,$colone)
         ->groupBy('produits.id')
-        ->distinct()
         ->paginate($nbp);
     }
+
+    //collection de cathégorie
+    public static function renduCollectionCathegorie(){
+        return DB::table('produits')
+        ->join('collections','collections.id','=','produits.collection')
+        ->select(DB::raw('count(produits.id) as nombre,collections.nom,collections.id'))
+        ->groupBy('collections.nom','collections.id')
+        ->paginate(10);
+    }
+
+
+    //collection de marques
+    public static function renduCollectionMarque(){
+        return DB::table('produits')
+        ->select(DB::raw('count(produits.id) as nombre'),'produits.marque')
+        ->groupBy('produits.marque')
+        ->paginate(10);
+    }
+    
 
     //produit
 

@@ -35,6 +35,7 @@ Route::group(['middleware' => 'Connexion'], function () {
     Route::get('/Gerer les Produit', 'pagesController@produitAdmin')->name('produit_admin_path');
     Route::get('/Mon-panier', 'pagesController@monPanier')->name('mon_panier_path');
     Route::get('/Mes-souhaits', 'pagesController@mesSouhaits')->name('mes_souhaits_path');
+    Route::get('/Couleur', 'pagesController@mesCouleurs')->name('mes_couleurs_path');
 });
 
 
