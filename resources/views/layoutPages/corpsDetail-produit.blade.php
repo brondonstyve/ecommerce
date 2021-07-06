@@ -113,14 +113,17 @@
                             <div class="product-options">
                                 <label>
                                     Taille
-                                    <select class="input-select">
-                                        <option value="0">X</option>
+                                    <select class="input-select" id="taillePanier">
+                                        <option value="x">X</option>
                                     </select>
                                 </label>
                                 <label>
                                     Couleur
-                                    <select class="input-select">
-                                        <option value="0">Red</option>
+                                    <select class="input-select" id="colorPanier">
+                                        <option></option>
+                                        @foreach ($couleur as $color)
+                                         <option value="{{$color->libelle}}">{{$color->libelle}}</option>
+                                        @endforeach
                                     </select>
                                 </label>
                             </div>
@@ -138,17 +141,17 @@
                                         <span class="qty-down">-</span>
                                     </div>
                                 </div>
-                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                <button class="add-to-cart-btn pannier" data-id="{{ $produit->id }}"  data-qte="t"><i class="fa fa-shopping-cart"></i> Ajouter à la carte</button>
                             </div>
 
                             <ul class="product-btns">
-                                <li><a href="#"><i class="fa fa-heart-o"></i> ajouter à vos souhaits</a></li>
+                                <li><a href="#" class="souhait"  data-souhait="{{ $produit->id }}"><i class="fa fa-heart-o"></i> ajouter à vos souhaits</a></li>
                                 <li><a href="#"><i class="fa fa-exchange"></i> ajouter pour comparer</a></li>
                             </ul>
 
                             <ul class="product-links">
                                 <li>Catégorie:</li>
-                                <li><a href="#">{{ $produit->collection }}</a></li>
+                                <li><a href=" {{route('produit_path',encrypt($produit->id_col))}} ">{{ $produit->collection }}</a></li>
                             </ul>
 
                             <ul class="product-links">
@@ -165,5 +168,7 @@
             </div>
         </div>
     </div>
+    <input type="hidden" data-toggle="modal" data-target="#modal-notification" class="notificateur">
+
 
     @livewire('detail-produit',['id'=>$parrametre])

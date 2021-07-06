@@ -171,6 +171,7 @@
                                         <label class="form-control-label">Cathégorie</label>
                                         <select class="form-control" type="text" wire:model="cathegorie"
                                             placeholder="Nom de la Produit" required>
+                                            <option ></option>
                                             @foreach ($this->cathegories as $item)
                                             <option value="{{ $item->id }}">{{ $item->nom }}</option>
                                             @endforeach
@@ -202,12 +203,10 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="exampleFormControlSelect2">Couleur (Maintenez la touche controle *ctrl* puis sélectionnez autant de couleur que vous voulez)</label>
-                                        <select multiple="" class="form-control" id="exampleFormControlSelect2" wire:models.lazy='couleur'>
-                                          @foreach ($this->couleurs as $coul)
-                                           <option value="{{ $coul->id }}" > {{ $coul->libelle }} </option>
+                                        <label class="form-control-label">Couleur</label>
+                                        @foreach ($this->couleurs as $coul)
+                                           <input type="checkbox" class="ml-4" wire:click="addColor({{ $coul->id }})" > {{ $coul->libelle }} </option>
                                           @endforeach
-                                        </select>
                                       </div>
 
                                     <label class="form-control-label">Image</label>
@@ -292,6 +291,13 @@
                                         <label class="form-control-label">Quantité</label>
                                         <input class="form-control" type="number" wire:model="qte" min="1" value="{{ $qte }}"
                                             placeholder="Quantité du Produit" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-control-label">Couleur</label>
+                                        @foreach ($this->couleurs as $coul)
+                                         <input type="checkbox" class="ml-4"  @if(!empty($couleurTab[$coul->id])) checked @endif wire:click="addColor({{ $coul->id }})" > {{ $coul->libelle }} </option>
+                                        @endforeach
                                     </div>
 
                                     <label class="form-control-label">Image</label>

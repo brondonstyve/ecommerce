@@ -9,6 +9,7 @@ use Livewire\WithFileUploads;
 use App\Helpers\Flash;
 use App\models\collection;
 use App\models\couleur;
+use App\models\couleurproduit;
 use Livewire\WithPagination;
 
 class ProduitAdmin extends Component
@@ -27,7 +28,7 @@ class ProduitAdmin extends Component
     public $prix;
     public $qte;
     public $image;
-    public $couleur;
+    public $couleurTab=[];
     public $imageAnc;
     public $supp;
     public $flashType='';
@@ -68,13 +69,15 @@ class ProduitAdmin extends Component
         $this->supp=-1;
     }
 
-
+    public function addColor($id){
+        if (empty($this->couleurTab[$id])) {
+            $this->couleurTab[$id]=$id;
+        } else {
+            unset($this->couleurTab[$id]);
+        } 
+    }
 
     public function ajouterProduit(){
-
-        
-        dd($this->couleur);
-        
         $name='';
         foreach ($this->image as $key => $value) {
             $name=$name.'|'.Image::traitement($this->image[$key],'png',600,400);
@@ -88,7 +91,16 @@ class ProduitAdmin extends Component
             'quantite'=>$this->qte,
             'prix'=>$this->prix,
             'image'=>$name,
+            'statut'=>true,
         ]);
+
+        foreach ($this->couleurTab as $key => $value) {
+            couleurproduit::create([
+                'produit_id'=>$reponse->id,
+                'couleur_id'=>$value
+            ]);
+        }
+
         if ($reponse) {
             $this->flashType='success';
             Flash::message($this->flashType,'Collection enregistré avec succès');
@@ -177,6 +189,8 @@ class ProduitAdmin extends Component
     public function modifier($id){
 
         $reponse=AppProduit::find($id);
+        $reponse1=couleurproduit::whereProduit_id($id)->get('couleur_id');
+
         $this->imageAnc=$reponse->image;
         $this->nom=$reponse->nom;
         $this->marque=$reponse->marque;
@@ -184,6 +198,9 @@ class ProduitAdmin extends Component
         $this->prix=$reponse->prix;
         $this->qte=$reponse->quantite;
         $this->num=$id;
+        foreach ($reponse1 as $value) {
+            $this->couleurTab[$value->couleur_id]=$value->couleur_id;
+        }
 
         $this->liste=false;
         $this->ajouter=false;
@@ -209,6 +226,18 @@ class ProduitAdmin extends Component
             'quantite'=>$this->qte,
             'image'=>$name,
         ]);
+
+        couleurproduit::where([
+            ['produit_id',$id],
+        ])->delete();
+
+        foreach ($this->couleurTab as $key => $value) {
+            couleurproduit::create([
+                'produit_id'=>$id,
+                'couleur_id'=>$value
+            ]);
+        }
+
         } else {
             $reponse=AppProduit::whereId($id)
             ->update([
@@ -218,6 +247,17 @@ class ProduitAdmin extends Component
                 'quantite'=>$this->qte,
                 'prix'=>$this->prix,
            ]);
+
+           couleurproduit::where([
+            ['produit_id',$id],
+            ])->delete();
+
+           foreach ($this->couleurTab as $key => $value) {
+            couleurproduit::create([
+                'produit_id'=>$id,
+                'couleur_id'=>$value
+            ]);
+        }
 
         }
 

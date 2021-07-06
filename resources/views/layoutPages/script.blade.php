@@ -108,10 +108,23 @@
 
 
     $(document).on('click','.pannier',function(e){
+
+        if ($(this).data('qte')==='t') {
+            var qte=$('#max').val();
+            var couleur=$('#colorPanier').val();
+            var taille=$('#taillePanier').val();
+            
+        } else {
+            var qte=1;
+            var couleur=null;
+            var taille=null;
+
+        }
+
         var id=$(this).data('id');
         var url='panier';
 
-        $.get(url,{id:id},function(data){
+        $.get(url,{id:id,qte:qte,color:couleur,taille:taille},function(data){
             if (data==false) {
                 window.location='Connexion';
             } else {
@@ -127,14 +140,15 @@
                 '</div>'+
                 '<div class="product-body">'+
                     '<h3 class="product-name"><a href="#">'+data[0].nom+'</a></h3>'+
-                    '<h4 class="product-price"><span class="qty">'+data[0].quantite+' x </span>'+data[0].prix+'</h4>'+
+                    '<h4 class="product-price"><span class="qty">'+data[0].quantite+' x </span>'+data[0].prix +'</h4>'+
                 '</div>'+
                 '<button class="delete"><i class="fa fa-close"></i></button>'+
             '</div><hr>');
 
             $('#qte-panier').replaceWith('<div class="qty" id="qte-panier" data-qte="'+($('#qte-panier').data('qte')+1)+'">'+($('#qte-panier').data('qte')+1)+'</div>');
 
-            var st=parseFloat(($('#sous-total').data('st')+data[0].prix));
+            var total=data[0].prix* data[0].quantite;
+            var st=parseFloat(($('#sous-total').data('st')+total));
             var small=($('#small').data('small')+1);
             var small1=($('#small1').data('small1')+1);
 

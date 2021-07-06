@@ -75,7 +75,7 @@ class Collection{
 
     public static function renduProduitUnique($id){
         return produit::join('collections','collections.id','=','produits.collection')
-        ->select('collections.nom as collection','produits.nom','produits.quantite','produits.marque','produits.prix','produits.statut','produits.image','produits.id')
+        ->select('collections.nom as collection','collections.id as id_col','produits.nom','produits.quantite','produits.marque','produits.prix','produits.statut','produits.image','produits.id')
         ->orderBy('id','desc')
         ->find($id);
     }

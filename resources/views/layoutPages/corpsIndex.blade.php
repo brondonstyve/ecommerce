@@ -239,7 +239,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="add-to-cart">
-                                                    <button class="add-to-cart-btn pannier" data-id="{{ $item->id }}"><i class="fa fa-shopping-cart"></i> Ajouter à la carte</button>
+                                                    <button class="add-to-cart-btn pannier" data-id="{{ $item->id }}" data-qte="f" ><i class="fa fa-shopping-cart"></i> Ajouter à la carte</button>
                                                 </div>
                                             </div>
                                         </div>

@@ -14,7 +14,7 @@ class Paiement extends Component
 
     public function getCommandeProperty(){
         return panier::join('produits','produits.id','paniers.produit')
-        ->select('paniers.quantite','produits.nom','produits.prix','paniers.id')
+        ->select('paniers.quantite','produits.nom','produits.prix','paniers.couleur','paniers.taille','paniers.id')
         ->whereCompte(auth()->user()->id)
         ->get();
     }

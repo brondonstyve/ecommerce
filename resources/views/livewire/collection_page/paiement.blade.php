@@ -1,12 +1,12 @@
 <div>
     <!-- SECTION -->
-<div class="section">
+<div class="section col-md-12">
     <!-- container -->
     <div class="container">
         <!-- row -->
         <div class="row">
 
-            <div class="col-md-7">
+            <div class="col-md-5">
                 <!-- Billing Details -->
                 <div class="billing-details">
                     <div class="section-title">
@@ -89,7 +89,7 @@
             </div>
 
             <!-- Order Details -->
-            <div class="col-md-5 order-details"  style="margin-top: 8%">
+            <div class="col-md-7 order-details"  style="margin-top: 8%">
                 <div class="section-title text-center">
                     <h3 class="title">Votre Commande</h3>
                 </div>
@@ -99,6 +99,8 @@
                         <tr class="">
                             <th><strong>Qte</strong></th>
                             <th><strong>PRODUIT</strong></th>
+                            <th><strong>Couleur</strong></th>
+                            <th><strong>taille</strong></th>
                             <th><strong>PRIX</strong></th>
                             <th><strong>TOTAL</strong></th>
                             <th class="text-right"><strong>A / D</strong></th>
@@ -116,6 +118,8 @@
                         <tr>
                             <td>{{ $item->quantite }}</td>
                             <td>{{ $item->nom }}</td>
+                            <td>{{ $item->couleur }}</td>
+                            <td>{{ $item->taille }}</td>
                             <td>{{ number_format($item->prix,'2','.',',') }}</td>
                             <td>
                                 {{  number_format( $item->prix*$item->quantite,'2','.',',') }}

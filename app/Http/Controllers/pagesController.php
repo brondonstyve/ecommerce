@@ -7,6 +7,7 @@ use App\Http\Requests\passePartout;
 use App\models\commentaire;
 use App\models\panier;
 use App\models\souhait;
+use Illuminate\Support\Facades\DB;
 
 class pagesController extends Controller
 
@@ -46,9 +47,15 @@ class pagesController extends Controller
         $produit=collectionHelper::renduProduitUnique($id);
         $parrametre=(int)$id;
 
+        $couleur= DB::table('couleurproduits')
+        ->join('couleurs','couleurs.id','couleurproduits.couleur_id')
+        ->whereProduit_id($id)
+        ->select('couleurs.id','couleurs.libelle')
+        ->get();
+
         $comment=commentaire::whereProduit($id)
         ->get();
-        return view('pages/index',compact('title','produit','parrametre','comment'));
+        return view('pages/index',compact('title','produit','parrametre','comment','couleur'));
     }
 
     public function black(){
@@ -78,7 +85,9 @@ class pagesController extends Controller
             $reponse=panier::create([
                 'compte'=>auth()->user()->id,
                 'produit'=>$request->id,
-                'quantite'=>1,
+                'quantite'=>$request->qte,
+                'couleur'=>$request->color,
+                'taille'=>$request->taille,
             ]);
             if ($reponse) {
                 $reponse=panier::join('produits','produits.id','=','paniers.produit')

@@ -90,4 +90,5 @@ class DetailProduit extends Component
         ->whereProduit($this->id_prod)
         ->get();
     }
+
 }
