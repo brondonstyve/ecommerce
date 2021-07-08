@@ -1976,12 +1976,13 @@ textarea.input {
 }
 
 .order-summary .order-col>div:last-child {
-    width: 150px;
+    width: 400px;
+    float: right;
     text-align: right;
 }
 
 .order-summary .order-col .order-total {
-    font-size: 24px;
+    font-size: 20px;
     color: #D10024;
 }
 

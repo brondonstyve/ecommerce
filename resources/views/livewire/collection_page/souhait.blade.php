@@ -48,9 +48,9 @@
                             @foreach ($this->souhait as $key=>$item)
                             <tr>
                                 <td class="product-des" data-title="Description">
-                                    <p class="product-name"><a href="#">{{ $item->nom }}</a></p>
+                                    <p class="product-name"><a href="{{ route('detail_produit_path',$item->produit) }}">{{ $item->nom }}</a></p>
                                 </td>
-                                <td class="price" data-title="Price"><span>{{ $item->prix }} </span></td>
+                                <td class="price" data-title="Price"><span>{{ number_format($item->prix,'0',',',env('FORMATEUR')) .' '.env('DEVISE')}} </span></td>
                                 <td class="qty" data-title="Qty">
                                     <!-- Input Order -->
                                     <div class="input-group">
@@ -75,7 +75,7 @@
                                 <div id="rafraichisseur" data-size="{{ sizeOf($this->souhait) }}"></div>
 
                                 <td class="total-amount" data-title="Total">
-                                    <span>{{ $item->quantite*$item->prix }}</span></td>
+                                    <span>{{ number_format($item->quantite*$item->prix ,'0',',',env('FORMATEUR')) .' '.env('DEVISE')}}</span></td>
                                 @php
                                 $image=explode('|',$item->image);
                                 $indice=rand(1,sizeOf($image)-1);
@@ -177,7 +177,7 @@
                         <div class="col-lg-4 col-md-7 col-12">
                             <div class="right">
                                 <ul>
-                                    <li> Sous Total :<strong> {{ number_format($total,'2',',','.') }}</strong></li>
+                                    <li> Sous Total :<strong> {{ number_format($total ,'0',',',env('FORMATEUR')) .' '.env('DEVISE')}} </strong></li>
 
                                 </ul>
                                 <div class="button5">

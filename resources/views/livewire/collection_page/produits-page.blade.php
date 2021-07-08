@@ -71,7 +71,8 @@
                                 <div class="product-body">
                                     <p class="product-category">{{ $item->collection }}</p>
                                     <h3 class="product-name"><a href="#" data-toggle="modal" wire:click='detail({{ $item->id }})'>{{ $item->nom }}</a></h3>
-                                    <h4 class="product-price">{{ $item->prix }} <del class="product-old-price">{{ $item->prix+ $item->prix *0.3 }}</del></h4>
+                                    <h4 class="product-price">{{ number_format($item->prix,'0',',',env('FORMATEUR')) .' '.env('DEVISE')}} </h4>
+                                    <del class="product-old-price">{{ number_format($item->prix+ $item->prix *0.3,'0',',',env('FORMATEUR')) .' '.env('DEVISE')}} </del>
                                     <div class="product-rating">
                                         <i class="fa fa-check-circle-o text-danger"></i>
                                         <i class="fa fa-check-circle-o text-danger"></i>
@@ -129,7 +130,8 @@
                             <div class="product-body">
                                 <p class="product-category">{{ $item->collection }}</p>
                                 <h3 class="product-name"><a href="#" data-toggle="modal" wire:click='detail({{ $item->id }})'>{{ $item->nom }}</a></h3>
-                                <h4 class="product-price">{{ $item->prix }} <del class="product-old-price">{{ $item->prix+ $item->prix *0.3 }}</del></h4>
+                                <h4 class="product-price">{{ number_format($item->prix,'0',',',env('FORMATEUR')) .' '.env('DEVISE')}}  </h4>
+                                <del class="product-old-price">{{ number_format($item->prix+ $item->prix *0.3,'0',',',env('FORMATEUR')) .' '.env('DEVISE')}} </del>
                                 <div class="product-rating">
                                     <i class="fa fa-check-circle-o text-danger"></i>
                                     <i class="fa fa-check-circle-o text-danger"></i>
@@ -283,7 +285,7 @@
                         <div class="product-body">
                             <p class="product-category" ><a href="#" wire:click='marque("{{ $item->marque }}")'>{{ $item->collection }}</a></p>
                             <h3 class="product-name" ><a href="#!" wire:click='detail({{ $item->id }})'>{{ $item->nom }}</a></h3>
-                            <h4 class="product-price">{{ $item->prix }} <del class="product-old-price"> {{ $item->prix + ($item->prix*0.3) }}</del></h4>
+                            <h4 class="product-price">{{ number_format($item->prix,'0',',',env('FORMATEUR')) .' '.env('DEVISE')}} </h4>
                         </div>
                     </div>
                     @endforeach

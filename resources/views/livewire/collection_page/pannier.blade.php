@@ -41,7 +41,7 @@
                     </div>
                     <div class="product-body">
                         <h3 class="product-name"><a href="#">{{ $item->nom }}</a></h3>
-                        <h4 class="product-price"><span class="qty">{{ $item->quantite }} x </span> {{ number_format($item->prix,'2',',','.') }}</h4>
+                        <h4 class="product-price"><span class="qty">{{ $item->quantite }} x </span> {{ number_format($item->prix,'0',',',env('FORMATEUR')) .' '.env('DEVISE')}} </h4>
                     </div>
                     <button class="delete" wire:click="remove({{ $item->id_panier }})"><i class="fa fa-close"></i></button>
                 </div>
@@ -59,7 +59,7 @@
                     @else
                     <small id="small" data-small="{{ sizeOf($this->panier) }}">{{ sizeOf($this->panier) }} produits selectionnés</small>
                     @endif
-                    <h5 id="sous-total" data-st="{{ $total }}">SOUS TOTAL: {{ number_format($total,'2',',','.') }}</h5>
+                    <h5 id="sous-total" data-st="{{ $total }}">SOUS TOTAL: {{ number_format($total,'0',',',env('FORMATEUR')) .' '.env('DEVISE')}} </h5>
                 </div>
                 <div class="cart-btns">
                     <a href="{{ route('mon_panier_path') }}">Voir le pannier</a>

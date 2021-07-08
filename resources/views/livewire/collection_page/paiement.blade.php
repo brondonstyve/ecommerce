@@ -13,7 +13,7 @@
                         <h3 class="title">addresse de livraison</h3>
                     </div>
                     <div class="form-group">
-                        <input class="input" type="text" name="prenom" placeholder="Prénom">
+                        <input class="input" type="text" name="prenom" placeholder="Prénom" >
                     </div>
                     <div class="form-group">
                         <input class="input" type="text" name="nom" placeholder="Nom">
@@ -43,13 +43,13 @@
                 <!-- Shiping Details -->
                 <div class="shiping-details">
                     <div class="section-title">
-                        <h3 class="title">Shiping address</h3>
+                        <h3 class="title">Autre adresse de livraison </h3>
                     </div>
                     <div class="input-checkbox">
                         <input type="checkbox" id="shiping-address">
                         <label for="shiping-address">
                             <span></span>
-                            Ship to a diffrent address?
+                            Livrer à une autre adresse ?
                         </label>
                         <div class="caption">
                             <div class="form-group">
@@ -120,9 +120,9 @@
                             <td>{{ $item->nom }}</td>
                             <td>{{ $item->couleur }}</td>
                             <td>{{ $item->taille }}</td>
-                            <td>{{ number_format($item->prix,'2','.',',') }}</td>
+                            <td>{{ number_format($item->prix,'0',',',env('FORMATEUR')) .' '.env('DEVISE')}}</td>
                             <td>
-                                {{  number_format( $item->prix*$item->quantite,'2','.',',') }}
+                                {{ number_format($item->prix*$item->quantite,'0',',',env('FORMATEUR')) .' '.env('DEVISE')}}
                             </td>
 
                             <td class="input-number">
@@ -137,14 +137,25 @@
                         @endforeach
                     </tbody>
                 </div>
-                </table>
+            </table>
+
+                
                     <div class="order-col">
                         <div>Frais De Livraison</div>
                         <div><strong>Gratuit</strong></div>
                     </div>
                     <div class="order-col">
                         <div><strong>TOTAL</strong></div>
-                        <div><strong class="order-total">{{ number_format($total,'2','.',',') }}</strong></div>
+                        <div><strong class="order-total ">{{ number_format($total,'0',',',env('FORMATEUR')) .' '.env('DEVISE')}}</strong></div>
+                    </div>
+                    @php
+                            $f=new NumberFormatter("fr", NumberFormatter::SPELLOUT);
+                            $f=$f->format($total);
+                        @endphp
+
+                    <div class="order-col">
+                        <div></div>
+                        <div class="order-total "><strong>{{$f .' '.env('DEVISE')}}</strong></div>
                     </div>
                 </div>
                 <div class="payment-method">

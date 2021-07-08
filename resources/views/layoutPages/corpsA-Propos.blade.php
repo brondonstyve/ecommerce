@@ -1,6 +1,7 @@
- <!-- ======= About Us Section ======= -->
- <section id="about" class="about">
-    <div class="container" data-aos="fade-up">
+
+<!-- ======= About Us Section ======= -->
+
+    <div class="container about" id="about"  data-aos="fade-up">
 
         <div class="section-title">
             <h2>Parlons de nous</h2>
@@ -71,14 +72,14 @@
                     </li>
                 </ul>
             </div>
-            <div class="text-center mt-2">
+            <div class="text-center m-4">
                 <a href="{{ route('contact_path') }}" class="btn-learn-more">Contactez nous</a>
             </div>
 </div>
 
     </div>
 
-</section>
+
 
 <!-- ======= Team Section ======= -->
 <section id="team" class="team section-bg">

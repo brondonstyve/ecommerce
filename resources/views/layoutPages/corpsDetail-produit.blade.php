@@ -97,8 +97,8 @@
                             @endif
 
                             <div>
-                                <h3 class="product-price">{{ $produit->prix }} <del
-                                        class="product-old-price">{{ $produit->prix +$produit->prix*0.3 }}</del></h3>
+                                <h3 class="product-price">{{ number_format($produit->prix,'0',',',env('FORMATEUR')) .' '.env('DEVISE')}}<del
+                                        class="product-old-price"> {{ number_format($produit->prix +$produit->prix*0.3,'0',',',env('FORMATEUR')) .' '.env('DEVISE')}}</del></h3>
                                 <span
                                     class="product-available">{{ ($produit->quantite!=0)? 'En Stock' : 'Stock terminé' }}</span>
                             </div>

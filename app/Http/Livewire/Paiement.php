@@ -30,6 +30,8 @@ class Paiement extends Component
                 'quantite'=>$qte+1
             ]
             );
+            $this->emitTo('pannier', 'refreshComponent');
+            
     }
 
 
@@ -45,5 +47,7 @@ class Paiement extends Component
             ]
             );
         }
+        $this->emitTo('pannier', 'refreshComponent');
+
     }
 }

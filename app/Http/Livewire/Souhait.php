@@ -19,7 +19,7 @@ class Souhait extends Component
 
     public function getSouhaitProperty(){
         return AppSouhait::join('produits','produits.id','souhaits.produit')
-        ->select('souhaits.quantite','produits.nom','produits.image','produits.prix','souhaits.id','produits.id as id_produit')
+        ->select('souhaits.quantite','produits.nom','produits.image','produits.prix','souhaits.id','souhaits.produit','produits.id as id_produit')
         ->whereCompte(auth()->user()->id)
         ->get();
     }

@@ -1,6 +1,6 @@
 <!-- ======= Contact Section ======= -->
-<section id="contact" class="contact">
-    <div class="container" data-aos="fade-up">
+
+    <div class="container contact" id="contact" data-aos="fade-up">
         <br>
         <br>
         <br>
@@ -70,5 +70,5 @@
         </div>
 
     </div>
-</section>
+
 <!-- End Contact Section -->
