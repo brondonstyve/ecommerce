@@ -1,6 +1,8 @@
 <div>
     <!-- SECTION -->
 <div class="section col-md-12">
+    <form action="{{route('paiement_path')}}" method="post">
+    @csrf
     <!-- container -->
     <div class="container">
         <!-- row -->
@@ -155,7 +157,7 @@
 
                     <div class="order-col">
                         <div></div>
-                        <div class="order-total "><strong>{{$f .' '.env('DEVISE')}}</strong></div>
+                        <div class="order-total text-uppercase"><strong>{{$f .' ('.env('DEVISE').')'}}</strong></div>
                     </div>
                 </div>
                 <div class="payment-method">
@@ -193,6 +195,7 @@
                         </div>
                     </div>
                 </div>
+                @if ($total!=0)
                 <div class="input-checkbox">
                     <input type="checkbox" id="terms">
                     <label for="terms">
@@ -200,13 +203,18 @@
                         J'ai lu et j'accepte les <a href="#!">termes & conditions</a>
                     </label>
                 </div>
-                <a href="#" class="primary-btn order-submit">Place order</a>
+                
+                <input type="hidden" name="total" value=" {{$total}} ">
+                <button type="submit" class="primary-btn  mx-auto" >Passer à la caisse</button>
+                @endif
+                
             </div>
             <!-- /Order Details -->
         </div>
         <!-- /row -->
     </div>
     <!-- /container -->
+</form>
 </div>
 <!-- /SECTION -->
 </div>
