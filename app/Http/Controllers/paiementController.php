@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Collection;
 use App\Http\Requests\passePartout;
+use App\models\commande;
+use App\models\panier;
+use App\Notifications\mailCommande;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Stripe\PaymentIntent;
 use Stripe\Stripe;
+
 
 class paiementController extends Controller
 {
@@ -17,22 +22,56 @@ class paiementController extends Controller
      */
     public function index(passePartout $request)
     {
-
-        if ($request->total<=0) {
-            return redirect()->route('cathegorie_path');
-        }
-
-        Stripe::setApiKey(env('STRIPE_KEY'));
-
-       $intent=PaymentIntent::create([
-           'amount'=>$request->total,
-           'currency'=>'eur',
-       ]);
-
-       $clientSecret= Arr::get($intent,'client_secret');
-
+        
         $title='Paiement';
-        return view('paiement.index',compact('title','clientSecret'));
+        $montant=$request->session()->get('prix');
+
+        if ($montant<=0) {
+            return redirect()->route('produit_path');
+        } 
+
+        switch ($request->payment) {
+            case 'card':
+                try {
+                    Stripe::setApiKey(env('STRIPE_KEY'));
+
+                    $intent=PaymentIntent::create([
+                        'amount'=>$montant,
+                        'currency'=>'eur',
+                    ]);
+                    
+                    $clientSecret= Arr::get($intent,'client_secret');
+
+                    session([
+                        'nom'=>$request->nom,
+                        'prenom'=>$request->prenom,
+                        'email'=>$request->email,
+                        'adresse'=>$request->adresse,
+                        'ville'=>$request->ville,
+                        'pays'=>$request->pays,
+                        'telephone'=>$request->telephone,
+                        'note'=>$request->note,
+                        'paymentType'=>$request->payment
+                        ]);
+                    
+
+                    return view('paiement.index',compact('title','clientSecret','montant'));
+                } catch (\Throwable $th) {
+                    session()->flash('error','Erreur lors de l\'initiation du paiement. Veuillez vérifier votre connexion internet.');
+                    return redirect()->route('index_path');
+                }
+                
+                break;
+            
+            case 'om':
+
+                break;
+
+            case 'paypal':
+                
+                break;
+        }
+        
     }
 
     /**
@@ -53,9 +92,66 @@ class paiementController extends Controller
      */
     public function store(Request $request)
     {
-        $data=$request->json->all();
 
-        return $data['paymentIntent'];
+        $data=$request->json()->all();
+
+        $session=$request->session()->all();
+
+        $panier=Collection::panier(auth()->user()->id);
+        
+        $codeCom='Com'.auth()->user()->id.'_'.now()->format('Y-m-d_H:i:s');
+        foreach ($panier as $key => $value) {
+            $reponse=commande::create([
+                'codeCom'=>$codeCom,
+                'compte'=>auth()->user()->id,
+                'nom'=>$session['nom'],
+                'prenom'=>$session['prenom'],
+                'email'=>$session['email'],
+                'telephone'=>$session['telephone'],
+                'adresse'=>$session['adresse'],
+                'ville'=>$session['ville'],
+                'pays'=>$session['pays'],
+                'note'=>$session['note'],
+                'typePaiement'=>$session['paymentType'],
+                'montant'=> $value->prix,
+                'montant_total'=> $data['paymentIntent']['amount'],
+                'devise'=> $data['paymentIntent']['currency'],
+                'quantite'=>$value->quantite,
+                'produit'=>$value->id_produit
+            ]);
+        }
+
+        $reponse->email=env('MAIL_ADMIN');
+
+        try {
+            $reponse->notify(new mailCommande);
+        } catch (\Throwable $th) {
+            return $th;
+        }
+        
+        if ($reponse) {
+            panier::whereCompte(auth()->user()->id)->delete();
+            session([
+                'nom'=>null,
+                'prenom'=>null,
+                'email'=>null,
+                'adresse'=>null,
+                'ville'=>null,
+                'pays'=>null,
+                'telephone'=>null,
+                'note'=>null,
+                'paymentType'=>null,
+                'prix'=>null,
+                ]);
+
+                
+            return $data['paymentIntent'];
+
+        } else {
+            return response('error');
+
+        }
+        
     }
 
     /**
@@ -101,5 +197,12 @@ class paiementController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function checkout(){
+
+        $title='Merci';
+        return view('paiement.corpsMerci',compact('title'));
     }
 }

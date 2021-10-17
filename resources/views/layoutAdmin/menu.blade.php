@@ -40,21 +40,15 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="examples/tables.html">
+                <a class="nav-link" href="{{ route('commande_admin_path') }}">
                   <i class="ni ni-bullet-list-67 text-default"></i>
-                  <span class="nav-link-text">Tables</span>
+                  <span class="nav-link-text">Commandes</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="examples/login.html">
-                  <i class="ni ni-key-25 text-info"></i>
-                  <span class="nav-link-text">Login</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="examples/register.html">
+                <a class="nav-link" href="{{ route('livreur_admin_path') }}">
                   <i class="ni ni-circle-08 text-pink"></i>
-                  <span class="nav-link-text">Register</span>
+                  <span class="nav-link-text">Livreur</span>
                 </a>
               </li>
               <li class="nav-item">

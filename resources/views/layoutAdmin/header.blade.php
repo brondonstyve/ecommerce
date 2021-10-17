@@ -124,7 +124,7 @@
                   <img alt="Image placeholder" src="administrer/assets/img/theme/team-4.jpg">
                 </span>
                 <div class="media-body  ml-2  d-none d-lg-block">
-                  <span class="mb-0 text-sm  font-weight-bold">Brondon styve</span>
+                  <span class="mb-0 text-sm  font-weight-bold">{{auth()->user()->nom.' '.auth()->user()->prenom}}</span>
                 </div>
               </div>
             </a>

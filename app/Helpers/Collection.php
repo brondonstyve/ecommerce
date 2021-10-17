@@ -95,6 +95,12 @@ class Collection{
     }
 
     public static function ajouterAuPannier($id){
+
+        if (auth()->guest()) {
+            Flash::message('error_connexion','Session expirée! Veuillez vous connecter.');
+            return redirect()->route('connexion_path');
+        }
+
         $reponse=panier::whereCompteAndProduit(auth()->user()->id,$id)->get();
            if (sizeOf($reponse)>=1) {
                return false;
@@ -115,6 +121,12 @@ class Collection{
 
 
     public static function ajouterAuSouhait($id){
+
+        if (auth()->guest()) {
+            Flash::message('error_connexion','Session expirée! Veuillez vous connecter.');
+            return redirect()->route('connexion_path');
+        }
+
         $reponse=souhait::whereCompteAndProduit(auth()->user()->id,$id)->get();
            if (sizeOf($reponse)>=1) {
                return false;

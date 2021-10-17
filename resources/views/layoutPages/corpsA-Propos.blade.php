@@ -98,7 +98,7 @@
                 <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
                     <div class="pic"><img src="img/team/avatar1.jpg" width="50%" class="img-fluid" alt=""></div>
                     <div class="member-info">
-                        <h4>Jakin Youdom</h4>
+                        <h4>Marie Lumiere</h4>
                         <span>Directeur Général</span>
                         <p>Ingénieur DEVOPS & Technicien informaticien.</p>
                         <div class="social">

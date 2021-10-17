@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Collection as collectionHelper;
 use App\Http\Requests\passePartout;
+use App\models\commande;
 use App\models\commentaire;
 use App\models\panier;
 use App\models\souhait;
+use App\Notifications\mailCommande;
 use Illuminate\Support\Facades\DB;
 
 class pagesController extends Controller
@@ -63,8 +65,9 @@ class pagesController extends Controller
         return view('pages/index',compact('title'));
     }
 
-    public function contact(){
+    public function contact(passePartout $request){
         $title='Contact';
+
         return view('pages/index',compact('title'));
     }
 
@@ -174,6 +177,60 @@ class pagesController extends Controller
         return view('administration/index',compact('title'));
     }
     
+    public function livreur(){
+        $title='Livreur';
+        return view('administration/index',compact('title'));
+    }
+
+    public function test(passePartout $request){
+
+        session([
+            'nom'=>'brondon',
+            'prenom'=>'styve',
+            'email'=>'brondonstyve@gmail.com',
+            'adresse'=>'baff',
+            'ville'=>'yde',
+            'pays'=>'cam',
+            'telephone'=>'697320974',
+            'note'=>'raz',
+            'paymentType'=>'card'
+            ]);
+
+        $session=$request->session()->all();
+
+
+        $panier=collectionHelper::panier(auth()->user()->id);
+        
+        $codeCom='Com'.auth()->user()->id.'_'.now()->format('Y-m-d_H:i:s');
+        foreach ($panier as $key => $value) {
+            $reponse=commande::create([
+                'codeCom'=>$codeCom,
+                'compte'=>auth()->user()->id,
+                'nom'=>$session['nom'],
+                'prenom'=>$session['prenom'],
+                'email'=>$session['email'],
+                'telephone'=>$session['telephone'],
+                'adresse'=>$session['adresse'],
+                'ville'=>$session['ville'],
+                'pays'=>$session['pays'],
+                'note'=>$session['note'],
+                'typePaiement'=>$session['paymentType'],
+                'montant'=> $value->prix,
+                'montant_total'=> 15000,
+                'devise'=> 'eur',
+                'quantite'=>$value->quantite,
+                'produit'=>$value->id_produit
+            ]);
+        }
+
+        $reponse->email=env('MAIL_ADMIN');
+
+        try {
+            $reponse->notify(new mailCommande);
+        } catch (\Throwable $th) {
+            return $th;
+        }
+    }
 
 
 }

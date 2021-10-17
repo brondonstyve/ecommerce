@@ -3,7 +3,7 @@
 
     <div class="section">
     <!-- container -->
-    <div class="container">
+    <div class="container"> 
         <!-- row -->
         <div class="row">
 
@@ -18,7 +18,7 @@
 
             <button id="submit"  class="btn btn-success mt-4">
                 <div class="spinner hidden" id="spinner"></div>
-                <span id="button-text">Proceder au paiement</span>
+                <span id="button-text">Proceder au paiement : ({{$montant}} XFA)</span>
               </button>
               
             <p class="result-message hidden">
@@ -26,6 +26,7 @@
               <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to pay again.
             </p>
           </form>
+          
     </div>
 </div>
 </div>

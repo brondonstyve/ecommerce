@@ -38,6 +38,13 @@ Route::group(['middleware' => 'Connexion'], function () {
     Route::get('/Couleur', 'pagesController@mesCouleurs')->name('mes_couleurs_path');
     Route::post('/Paiement', 'paiementController@index')->name('paiement_path');
     Route::post('/ValiderPaiement', 'paiementController@store')->name('validerPaiement_path');
+    Route::get('/merci', 'paiementController@checkout')->name('checkout_path');
+    Route::get('/commande-Client', 'commandeController@commandeClient')->name('commande_client_path');
+    Route::get('/commande-Admin', 'commandeController@commandeAdmin')->name('commande_admin_path');
+    Route::get('/commande-Admin-Detail{id}', 'commandeController@commandeAdminDetail')->name('commande_admin_detail_path');
+    Route::get('/livreur', 'pagesController@livreur')->name('livreur_admin_path');
+    Route::get('/test', 'pagesController@test')->name('livreur_admin_path');
+    
 });
 
 

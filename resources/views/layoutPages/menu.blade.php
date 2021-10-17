@@ -4,9 +4,10 @@
     <div class="container">
         <!-- responsive-nav -->
         <div id="responsive-nav">
-            <!-- NAV -->
+            <!-- NAV --> 
             <ul class="main-nav nav navbar-nav">
                 <li class="@if($title=='Index') active @endif"><a href="{{ route('index_path') }}">Accueil</a></li>
+                <li class="@if($title=='MonPanier') active @endif"><a href="{{ route('mon_panier_path') }}">Mon Panier</a></li>
                 <li class="@if($title=='Cathegorie') active @endif"><a href="{{ route('cathegorie_path') }}">Catégories</a></li>
                 <li class="@if($title=='Produit') active @endif"><a href="{{ route('produit_path',$idCathegorie='s') }}">Produits</a></li>
                 <li class="@if($title=='BlackDay') active @endif"><a href="{{ route('black_day_path') }}">Black Zone</a></li>

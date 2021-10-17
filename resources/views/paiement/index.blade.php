@@ -1,6 +1,7 @@
 @include('layoutPages.css')
 @include('layoutPages.header')
 @include('layoutPages.menu')
+@include('layoutPages.notification')
 @include("paiement.corps$title")
 @include('layoutPages.footer')
 @include('layoutPages.script')

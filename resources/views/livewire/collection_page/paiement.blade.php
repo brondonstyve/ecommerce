@@ -18,91 +18,60 @@
                         <input class="input" type="text" name="prenom" placeholder="Prénom" >
                     </div>
                     <div class="form-group">
-                        <input class="input" type="text" name="nom" placeholder="Nom">
+                        <input class="input" type="text" name="nom" placeholder="Nom" required value="{{auth()->user()->nom}}">
                     </div>
                     <div class="form-group">
                         <input class="input" type="email" name="email" placeholder="Email">
                     </div>
                     <div class="form-group">
-                        <input class="input" type="text" name="addresse" placeholder="Addresse">
+                        <input class="input" type="text" name="adresse" placeholder="Addresse" required>
                     </div>
                     <div class="form-group">
-                        <input class="input" type="text" name="ville" placeholder="Ville">
+                        <input class="input" type="text" name="ville" placeholder="Ville" required>
                     </div>
                     <div class="form-group">
-                        <input class="input" type="text" name="pays" placeholder="Pays">
+                        <input class="input" type="text" name="pays" placeholder="Pays" required>
                     </div>
                     <div class="form-group">
-                        <input class="input" type="text" name="zip-code" placeholder="Adresse Postale">
-                    </div>
-                    <div class="form-group">
-                        <input class="input" type="tel" name="tel" placeholder="Telephone">
+                        <input class="input" type="tel" name="telephone" placeholder="Telephone" required value="{{auth()->user()->email}}">
                     </div>
 
                 </div>
                 <!-- /Billing Details -->
 
-                <!-- Shiping Details -->
-                <div class="shiping-details">
-                    <div class="section-title">
-                        <h3 class="title">Autre adresse de livraison </h3>
-                    </div>
-                    <div class="input-checkbox">
-                        <input type="checkbox" id="shiping-address">
-                        <label for="shiping-address">
-                            <span></span>
-                            Livrer à une autre adresse ?
-                        </label>
-                        <div class="caption">
-                            <div class="form-group">
-                                <input class="input" type="text" name="first-name" placeholder="First Name">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="text" name="last-name" placeholder="Last Name">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="email" name="email" placeholder="Email">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="text" name="address" placeholder="Address">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="text" name="city" placeholder="City">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="text" name="country" placeholder="Country">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="text" name="zip-code" placeholder="ZIP Code">
-                            </div>
-                            <div class="form-group">
-                                <input class="input" type="tel" name="tel" placeholder="Telephone">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /Shiping Details -->
+              
 
                 <!-- Order notes -->
                 <div class="order-notes">
-                    <textarea class="input" placeholder="Order Notes"></textarea>
+                    <textarea class="input" placeholder="Order Notes" name="note" ></textarea>
                 </div>
                 <!-- /Order notes -->
             </div>
 
-            <!-- Order Details -->
-            <div class="col-md-7 order-details"  style="margin-top: 8%">
-                <div class="section-title text-center">
-                    <h3 class="title">Votre Commande</h3>
-                </div>
-                <div class="order-summary">
-                <table class="table table-responsive col-md-12">
+
+
+
+            <div class="container-fluid ">
+
+                            
+                <!-- Dark table -->
+                <div class="row ">
+                    <div class="col">
+                        <div class="card bg-default shadow">
+                            <div class="table-responsive">
+        
+                                <div class="section-title text-center ">
+                                    <h3 class="title">Votre Commande</h3>
+                                </div>
+
+                                <table class="table align-items-center table-dark table-flush">
+
                     <thead>
                         <tr class="">
                             <th><strong>Qte</strong></th>
                             <th><strong>PRODUIT</strong></th>
-                            <th><strong>Couleur</strong></th>
-                            <th><strong>taille</strong></th>
+                            <th><strong>COULEUR</strong></th>
+                            <th><strong>TAILLE</strong></th>
                             <th><strong>PRIX</strong></th>
                             <th><strong>TOTAL</strong></th>
                             <th class="text-right"><strong>A / D</strong></th>
@@ -110,7 +79,6 @@
                     </thead>
 
                     <hr>
-                    <div class="order-products">
                         @php
                             $total=0;
                         @endphp
@@ -119,9 +87,21 @@
 
                         <tr>
                             <td>{{ $item->quantite }}</td>
-                            <td>{{ $item->nom }}</td>
-                            <td>{{ $item->couleur }}</td>
-                            <td>{{ $item->taille }}</td>
+                            <td>{!! $item->nom !!}</td>
+                            <td>
+                            @if ($item->couleur!==null)
+                            {!! $item->couleur !!}
+                            @else
+                                /
+                            @endif    
+                            </td>
+                            <td>
+                                @if ($item->taille!==null)
+                                {!! $item->taille !!}
+                                @else
+                                    /
+                                @endif    
+                            </td>
                             <td>{{ number_format($item->prix,'0',',',env('FORMATEUR')) .' '.env('DEVISE')}}</td>
                             <td>
                                 {{ number_format($item->prix*$item->quantite,'0',',',env('FORMATEUR')) .' '.env('DEVISE')}}
@@ -138,74 +118,107 @@
                         @endphp
                         @endforeach
                     </tbody>
-                </div>
             </table>
 
-                
-                    <div class="order-col">
-                        <div>Frais De Livraison</div>
-                        <div><strong>Gratuit</strong></div>
-                    </div>
-                    <div class="order-col">
-                        <div><strong>TOTAL</strong></div>
-                        <div><strong class="order-total ">{{ number_format($total,'0',',',env('FORMATEUR')) .' '.env('DEVISE')}}</strong></div>
-                    </div>
-                    @php
-                            $f=new NumberFormatter("fr", NumberFormatter::SPELLOUT);
-                            $f=$f->format($total);
-                        @endphp
+            
+            <table class="table align-items-center table-dark table-flush mt-6">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div>Frais De Livraison</div>
+                        </td>
 
-                    <div class="order-col">
-                        <div></div>
-                        <div class="order-total text-uppercase"><strong>{{$f .' ('.env('DEVISE').')'}}</strong></div>
-                    </div>
+                        <td class="text-right"> 
+                            <div><strong>Gratuit</strong></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div>Total</div>
+                        </td>
+
+                        <td class="text-right"> 
+                            <div><strong class="order-total ">{{ number_format($total,'0',',',env('FORMATEUR')) .' '.env('DEVISE')}}</strong></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        @php
+                        $f=new NumberFormatter("fr", NumberFormatter::SPELLOUT);
+                        $f=$f->format($total);
+                        @endphp
+                        <td class="text-right" colspan="2"> 
+                            <div class="order-total text-uppercase"><strong>{{$f .' ('.env('DEVISE').')'}}</strong></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
                 </div>
-                <div class="payment-method">
+            </div>
+        </div>
+
+
+
+
+                <div class="payment-method input-radio ">
+
                     <div class="input-radio">
-                        <input type="radio" name="payment" id="payment-1">
+                        <input type="radio" name="payment" value="card" id="payment-1" required>
                         <label for="payment-1">
-                            <span></span>
+                            
                             <i class="fa fa-cc-mastercard text-danger"></i>
                             Carte de credit
                         </label>
                         <div class="caption">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <p>Le paiement via cette option se fera par carte (visa, Mastercard, etc...).</p>
                         </div>
                     </div>
+
                     <div class="input-radio">
-                        <input type="radio" name="payment" id="payment-2">
+                        <input type="radio" name="payment" value="om" id="payment-2" required>
                         <label for="payment-2">
-                            <span></span>
+                            
                             <i class="fa fa-opencart text-orange" ></i>
                             OM / Mobile Money
                         </label>
                         <div class="caption">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <p>Le paiement via cette option se fera par paiement mobile Orange money et mobile money.</p>
                         </div>
                     </div>
+
                     <div class="input-radio">
-                        <input type="radio" name="payment" id="payment-3">
+                        <input type="radio" name="payment"  value="paypal" id="payment-3" required>
                         <label for="payment-3">
-                            <span></span>
+                            
                             <i class="fa fa-cc-paypal text-primary"></i>
                             PayPal
                         </label>
                         <div class="caption">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <p>Le paiement via cette option se fera par votre compte paypal.</p>
                         </div>
                     </div>
+
                 </div>
                 @if ($total!=0)
-                <div class="input-checkbox">
-                    <input type="checkbox" id="terms">
+                <div class="" style="float: right">
+                    <input type="checkbox" id="terms" required class="mr-2">
                     <label for="terms">
-                        <span></span>
-                        J'ai lu et j'accepte les <a href="#!">termes & conditions</a>
+                        <span>
+                            J'ai lu et j'accepte les <a href="#!">termes & conditions</a>
+                        </span>
                     </label>
+<br>
+                    <button type="submit" class="primary-btn "  style="float: right">Passer à la caisse</button>
+
                 </div>
                 
-                <input type="hidden" name="total" value=" {{$total}} ">
-                <button type="submit" class="primary-btn  mx-auto" >Passer à la caisse</button>
+                <input type="hidden" name="total" value="{{$total}}">
+                @php
+                    session([
+                        'prix'=>$total
+                    ])
+                @endphp
                 @endif
                 
             </div>
@@ -213,6 +226,9 @@
         </div>
         <!-- /row -->
     </div>
+    </div>
+    </div>
+</div>
     <!-- /container -->
 </form>
 </div>

@@ -13,9 +13,10 @@
                         <li><a href="#"><i class="fa fa-money"></i></i> {{ env('DEVISE') }}</a></li>
                         <li><a href="{{ route('compte_path') }}"><i class="fa fa-user-o"></i> Mon Compte</a></li>
                         @if (auth()->check())
-                        <li><a href="{{ route('deconnexion_path') }}"><i class="fa fa-lock"></i> deconnexion</a></li>
+                        <li><a href="{{ route('deconnexion_path') }}"><i class="fa fa-key"></i> Deconnexion</a></li>
+                        <li><a href="{{ route('commande_client_path') }}"><i class="fa fa-shopping-bag" aria-hidden="true"></i></i>Commande</a></li>
                         @else
-                        <li><a href="{{ route('connexion_path') }}"><i class="fa fa-user-circle"></i> connexion</a></li>
+                        <li><a href="{{ route('connexion_path') }}"><i class="fa fa-user-circle"></i> Connexion</a></li>
                         @endif
 
                     </ul>
